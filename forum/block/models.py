@@ -4,6 +4,13 @@ from django.db import models
 
 
 class Block(models.Model):
-    name = models.CharField("板块名称", max_length=20)
-    desc = models.CharField("板块描述", max_length=200)
+    name = models.CharField("版块名称", max_length=20)
+    desc = models.CharField("版块描述", max_length=200)
     manager_name = models.CharField("管理员名称", max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "版块"
+        verbose_name_plural = "版块"
