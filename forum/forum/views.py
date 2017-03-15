@@ -8,5 +8,6 @@ def index(request):
     #               {"name": "Docker专区", "desc": "docker容器学习", "manager": "select2"},
     #               {"name": "Django专区", "desc": "django基础学习", "manager": "select3"},
     #               ]
-    block_info = Block.objects.all().order_by("-id")
+    # block_info = Block.objects.all().order_by("-id")
+    block_info = Block.objects.filter(status=0).order_by("-id")
     return render(request, "index.html", {"blocks": block_info})
