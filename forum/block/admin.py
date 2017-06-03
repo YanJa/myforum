@@ -9,7 +9,7 @@ class BlockAdmin(admin.ModelAdmin):
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ("title", "block", "content", "author", "status")
+    list_display = ("title", "block", "content", "owner", "status")
 
 admin.site.register(Block, BlockAdmin)
 admin.site.register(Article, ArticleAdmin)
