@@ -17,7 +17,7 @@
         <li><a href="/article/list/{{ b.id }}">{{ b.name }}</a></li>
       <li class="active">发表文章</li>
     </ol>
-    <form class="form-horizontal" method="post" action="/article/create/{{ b.id }}">{% csrf_token %}
+    <form class="form-horizontal" method="post" action="/article/create/{{ b.id }}/">{% csrf_token %}
         <div class="form-group">
             <label for="inputTitle" class="col-sm-2 col-md-1 control-label">标题</label>
             <div class="col-sm-10 col-md-10">
