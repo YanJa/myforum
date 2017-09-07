@@ -105,3 +105,6 @@ ENV/
 
 db.sqlite3
 migrations/000*.py
+
+# pycharm
+.idea/
