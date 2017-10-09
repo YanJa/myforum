@@ -39,13 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'block',
     'article',
+    'usercenter',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -57,7 +58,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, "templates"),
-                 os.path.join(BASE_DIR, "usercenter", "templates")],
+                 os.path.join(BASE_DIR, "templates", "block"),
+                 os.path.join(BASE_DIR, "templates", "usercenter"),
+                 os.path.join(BASE_DIR, "templates", "article")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,20 +79,6 @@ WSGI_APPLICATION = 'forum.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-<<<<<<< HEAD
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
-=======
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -99,11 +88,9 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'forum',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
->>>>>>> 64138a715f2eba0b385bb60ada4b19b3625355bc
+        'HOST': 'db',
         'PORT': '5432',
     }
 

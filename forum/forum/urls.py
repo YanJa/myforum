@@ -16,11 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from forum import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index),
-    url(r'^register/$', views.register, name='register'),
-    url(r'^article/', include("article.urls")),
 ]

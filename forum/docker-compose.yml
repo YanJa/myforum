@@ -1,13 +1,20 @@
 db:
-    image: postgres
+    # image: postgres
+    image: forum_db
+
+redis:
+    # redis server
+    image: redis
 
 web:
-    build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    # build: .
+    image: myapp
+    # command: bash -c "python manage.py makemigrations && python manage.py migrate && uwsgi --http :8000 --module forum.wsgi"
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
         - .:/code
     ports:
         - "8000:8000"
     links:
         - db
-
+        - redis
