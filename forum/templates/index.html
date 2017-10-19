@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="col-xs-12 col-md-10">
+        {% for bl in block_info %}
             <div class="panel panel-info">
               <div class="panel-heading">
-                  <span class="panel-title "><a href="#">django板块</a></span>
-                <span class="pull-right">管理员</span>
+                  <span class="panel-title "><a href="#">{{ bl.name }}</a></span>
+                  <span class="pull-right"> {{ bl.manager }}</span>
               </div>
               <div class="panel-body">
-                django学习
+                  {{ bl.desc }}
               </div>
             </div>
+        {% endfor %}
     </div>
    <div class="col-xs-12 col-md-2">
         <div class="well">匿名用户,马上<a href="#">注册</a></div>
