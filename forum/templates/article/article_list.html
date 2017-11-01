@@ -6,9 +6,9 @@
 {% block content %}
     <ol class="breadcrumb">
       <li><a href="/">首页</a></li>
-      <li class="active">{{ b.name }}</li>
+      <li class="active">{{ bl.name }}</li>
     </ol>
-    <a href="/article/create/{{ b.id }}"><button type="button" class="btn btn-primary">发表文章</button></a>
+    <a href="/article/create/{{ bl.id }}"><button type="button" class="btn btn-primary">发表文章</button></a>
     <br /><br />
     <table class="table table-hover">
         <thead><!-- thead表头, tr是行, th是单元格-->
@@ -27,7 +27,7 @@
                     <td><a href="/article/detail/{{ article.id }}">{{ article.title }}</a></td>
                     <td>{{ article.owner }}</td>
                     <td>{{ article.create_timestamp|date:"Y-m-d P" }}</td>
-                    <td>{{ article.last_update_timestamp|date:"Y-m-d p" }}</td>
+                    <td>{{ article.last_update_timestamp|date:"Y-m-d P" }}</td>
                 </tr>
             {% endfor %}
         </tbody>
