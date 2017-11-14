@@ -103,7 +103,7 @@ ENV/
 # mypy
 .mypy_cache/
 
-db.sqlite3
+# db.sqlite3
 migrations/000*.py
 
 # pycharm
