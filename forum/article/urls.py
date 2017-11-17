@@ -16,11 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from .views import (
     article_list,
-    article_create,
+    #article_create,
+    #article_detail,
+    AticleCreateView,
+    ArticleDetailView
     )
 
 
 urlpatterns = [
     url(r'^list/(?P<block_id>\d+)', article_list, name='article_list'),
-    url(r'^create/(?P<block_id>\d+)', article_create, name='article_create'),
+    #url(r'^create/(?P<block_id>\d+)', article_create, name='article_create'),
+    #url(r'^detail/(?P<article_id>\d+)', article_detail, name='article_detail'),
+    url(r'^create/(?P<block_id>\d+)', AticleCreateView.as_view(), name='article_create'),
+    url(r'^detail/(?P<pk>\d+)', ArticleDetailView.as_view(), name='article_detail'),
 ]
