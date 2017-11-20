@@ -3,6 +3,7 @@ from django.views.generic import View, DetailView
 from .models import Article
 from .forms import ArticleForm
 from block.models import Block
+from utils.paginator import pagination
 
 # Create your views here.
 
@@ -11,11 +12,15 @@ def article_list(request, block_id):
     template = "article_list.html"
     block_id = int(block_id)
     bl = Block.objects.get(id=block_id)  # 指定版块对应的文章信息
-    article_obj = Article.objects.filter(block=bl, status=0).order_by('-id')
+    article_objs = Article.objects.filter(block=bl, status=0).order_by('-id')
     response = {
         "bl": bl,
-        "articles": article_obj
+        # "articles": article_objs
         }
+    # 返回的页面数据放在分页里面了
+    page_no = int(request.GET.get('page_no', 1))
+    res = pagination(article_objs, page_no)
+    response.update(res)
     return render(request, template, response)
 
 
