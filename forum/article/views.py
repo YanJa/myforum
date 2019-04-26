@@ -7,6 +7,7 @@ from utils.paginator import pagination
 
 # Create your views here.
 
+
 # 查看文章列表
 def article_list(request, block_id):
     template = "article_list.html"
@@ -15,7 +16,7 @@ def article_list(request, block_id):
     article_objs = Article.objects.filter(block=bl, status=0).order_by('-id')
     response = {
         "bl": bl,
-        # "articles": article_objs
+        "articles": article_objs
         }
     # 返回的页面数据放在分页里面了
     page_no = int(request.GET.get('page_no', 1))
@@ -24,47 +25,47 @@ def article_list(request, block_id):
     return render(request, template, response)
 
 
-#def article_create(request, block_id):
-#    template = "article_create.html"
-#    block_id = int(block_id)
-#    # 通过传入的block_id获取版块信息
-#    bl = Block.objects.get(id=block_id)
-#    # 请求GET方法用于获取页面将block传递给页面
-#    if request.method == 'GET':
-#        return render(request, template, {"bl": bl})
-#    else:
-#        # POST方法提交数据
-#        # 采用表单验证用户提交的数据
-#        form = ArticleForm(request.POST)
-#        if form.is_valid():  # 判定参数合法性
-#            #res = Article.objects.create(block=bl, title=form.cleaned_data['title'],
-#            #                             content=form.cleaned_data['content'],
-#            #                             status=0)
-#            #res.save()
-#            article = form.save(commit=False)  # commit决定是否写入数据库
-#            article.block = bl
-#            article.status = 0
-#            article.save()
-#            return redirect("/article/list/%d" % block_id)
-#        else:
-#            response = {
-#                "bl": bl,
-#                "form": form
-#            }
-#            return render(request, template, response)
+def article_create(request, block_id):
+    template = "article_create.html"
+    block_id = int(block_id)
+    # 通过传入的block_id获取版块信息
+    bl = Block.objects.get(id=block_id)
+    # 请求GET方法用于获取页面将block传递给页面
+    if request.method == 'GET':
+        return render(request, template, {"bl": bl})
+    else:
+        # POST方法提交数据
+        # 采用表单验证用户提交的数据
+        form = ArticleForm(request.POST)
+        if form.is_valid():  # 判定参数合法性
+            res = Article.objects.create(block=bl, title=form.cleaned_data['title'],
+                                         content=form.cleaned_data['content'],
+                                         status=0)
+            res.save()
+            article = form.save(commit=False)  # commit决定是否写入数据库
+            article.block = bl
+            article.status = 0
+            article.save()
+            return redirect("/article/list/%d" % block_id)
+        else:
+            response = {
+               "bl": bl,
+               "form": form
+            }
+            return render(request, template, response)
 
 
 # 文章详情页面
-#def article_detail(request, article_id):
-#
-#    template = "article_detail.html"
-#
-#    article_id = int(article_id)
-#    article = Article.objects.get(id=article_id)
-#    response = {
-#        "article": article
-#    }
-#    return render(request, template, response)
+def article_detail(request, article_id):
+
+    template = "article_detail.html"
+
+    article_id = int(article_id)
+    article = Article.objects.get(id=article_id)
+    response = {
+       "article": article
+    }
+    return render(request, template, response)
 
 
 # 创建文章
@@ -83,6 +84,7 @@ class AticleCreateView(View):
 
     def post(self, request, block_id):
         self._init_data(block_id)
+        print(request.user.id)
         form = ArticleForm(request.POST)
         if form.is_valid():
             article = form.save(commit=False)  # 是否提交数据

@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from .views import (
-    login,
+    LoginView,
     register
     )
 
 
 urlpatterns = [
     # 文章列表页面
-    url(r'^login/$', login, name='login'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^register/$', register, name='register'),
 ]

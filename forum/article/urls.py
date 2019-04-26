@@ -26,8 +26,8 @@ from .views import (
 urlpatterns = [
     # 文章列表页面
     url(r'^list/(?P<block_id>\d+)', article_list, name='article_list'),
-    #url(r'^create/(?P<block_id>\d+)', article_create, name='article_create'),
-    #url(r'^detail/(?P<article_id>\d+)', article_detail, name='article_detail'),
+    # url(r'^create/(?P<block_id>\d+)', article_create, name='article_create'),
+    # url(r'^detail/(?P<article_id>\d+)', article_detail, name='article_detail'),
     # 创建文章接口
     url(r'^create/(?P<block_id>\d+)', AticleCreateView.as_view(), name='article_create'),
     # 文章详情接口
