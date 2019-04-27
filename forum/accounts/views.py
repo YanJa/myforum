@@ -1,33 +1,88 @@
 from django.views.generic import View
+from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
-from .forms import AccountsForm
+
+from .utils import check_email
 # Create your views here.
 
 
 class LoginView(View):
+    """
+    登录视图
+    """
+    template = "accounts/login.html"
 
-    template = "accounts/register.html"
+    def __init__(self, **kwargs):
+        super(View).__init__(**kwargs)
+        self.errors = {
+                "msg": ""
+            }
 
     def get(self, request):
         return render(request, self.template)
 
-    def post(self):
-        pass
+    def post(self, request):
+        """
+        登录提交表单
+        :param request:
+        :return:
+        """
+        username = request.POST.get("username")
+        password = request.POST.get("password")
 
-
-def register(request):
-    template = "accounts/register.html"
-    if request.method == 'GET':
-        return render(request, template)
-    else:
-        form = AccountsForm(request.POST)
-        if form.is_valid():
-            accounts = form.save(commit=False)  # 是否提交数据
-            accounts.save()
-            return redirect("/")
+        try:
+            user_obj = User.objects.get(username=username)
+        except User.DoesNotExist:
+            print("用户不存在", username)
+            self.errors.update({"msg": "用户不存在: %s" % username})
+            return render(request, self.template, {"errors": self.errors})
+        if check_password(password, user_obj.password):
+            auth_login(request, user_obj)
+            print("正在登录")
         else:
-            response = {
-                "form": form
-            }
-            return render(request, template, response)
+            print("登录失败")
+            return render(request, self.template)
+
+
+class RegisterView(View):
+    """
+    用户注册视图
+    """
+    template = "accounts/register.html"
+
+    def __init__(self, **kwargs):
+        super(View).__init__(**kwargs)
+        self.errors = {
+                "msg": ""
+        }
+
+    def get(self, request):
+        return render(request, self.template)
+
+    def post(self, request):
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        re_password = request.POST.get("re_password")
+
+        form = {
+            "username": username,
+            "email": email,
+            "password": password
+        }
+        if password != re_password:  # 用户密码校验
+            self.errors.update({"msg": "两次输入用密码不一致"})
+            return render(request, self.template, {"form": form, "errors": self.errors})
+        if not check_email(email):
+            self.errors.update({"msg": "输入的邮箱不正确"})
+            return render(request, self.template, {"form": form, "errors": self.errors})
+        try:
+            user_obj = User.objects.create_user(**form)
+            if user_obj:
+                print("创建用户成功")
+                return redirect("/")
+        except Exception as e:
+            print(e)
+        return render(request, self.template, {"form": form, "errors": self.errors})

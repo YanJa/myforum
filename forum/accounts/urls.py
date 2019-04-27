@@ -16,12 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from .views import (
     LoginView,
-    register
+    RegisterView
     )
 
 
 urlpatterns = [
     # 文章列表页面
     url(r'^login/$', LoginView.as_view(), name='login'),
-    url(r'^register/$', register, name='register'),
+    url(r'^register/$', RegisterView.as_view(), name='register'),
 ]

@@ -5,19 +5,15 @@
 
 {% block content %}
 
-{% for field in form %}
-    {% if field.errors %}
-        {% for err in field.errors %}
-            <div class="alert alert-danger">
-                {{ field.label }}: {{ err }}
-            </div>
-        {% endfor %}
-    {% endif %}
-{% endfor %}
 
  <div class="col-md-3">
-     &nbsp;
+     {% if errors %}
+        <div class="alert alert-danger">
+            meg: {{ errors.msg }}
+        </div>
+    {% endif %}
  </div>
+
  <div class="col-md-6">
      <div class="panel panel-primary">
           <div class="panel-heading">
@@ -27,12 +23,12 @@
               <form method="post" action="{% url 'register' %}">{% csrf_token %}
                   <div class="input-group">
                       <span class="input-group-addon">用户名&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                      <input id="id_username" maxlength="254" name="username" type="text" class="form-control">
+                      <input id="id_username" maxlength="254" name="username" type="text" value="{{ form.username }}" class="form-control">
                   </div>
                   <br>
                   <div class="input-group">
                       <span class="input-group-addon">邮箱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                      <input id="id_email" maxlength="254" name="email" type="text" class="form-control">
+                      <input id="id_email" maxlength="254" name="email" type="text" value="{{ form.email }}" class="form-control">
                   </div>
                   <br>
                   <div class="input-group">
