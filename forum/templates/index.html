@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+    <!--右侧提示框-->
     <div class="col-xs-12 col-md-10">
         {% for bl in block_info %}
             <div class="panel panel-info">
@@ -14,6 +15,10 @@
         {% endfor %}
     </div>
    <div class="col-xs-12 col-md-2">
-       <div class="well">匿名用户,马上<a href="{% url 'login' %}">登录</a></div>
+        {% if user == 'None' %}
+            <div class="well">匿名用户,马上<a href="{% url 'register' %}">注册</a></div>
+        {% else %}
+            <div class="well">尊敬的会员<a href="{% url 'login' %}">{{ user }}</a>,欢迎查看本站</div>
+        {% endif %}
     </div>
 {% endblock %}

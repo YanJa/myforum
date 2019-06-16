@@ -15,7 +15,7 @@ class LoginView(View):
     template = "accounts/login.html"
 
     def __init__(self, **kwargs):
-        super(View).__init__(**kwargs)
+        super(View, self).__init__(**kwargs)
         self.errors = {
                 "msg": ""
             }
@@ -41,6 +41,7 @@ class LoginView(View):
         if check_password(password, user_obj.password):
             auth_login(request, user_obj)
             print("正在登录")
+            return redirect('/')
         else:
             print("登录失败")
             return render(request, self.template)
@@ -81,6 +82,7 @@ class RegisterView(View):
         try:
             user_obj = User.objects.create_user(**form)
             if user_obj:
+                auth_login(request, user_obj)
                 print("创建用户成功")
                 return redirect("/")
         except Exception as e:

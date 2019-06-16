@@ -7,5 +7,5 @@ from block.models import Block
 # 首页查询出所有版块信息
 def index(request):
     res = Block.objects.filter(status=0).order_by("-id")
-
-    return render(request, "index.html", {"block_info": res})
+    print(request.user)
+    return render(request, "index.html", {"block_info": res, "user": request.user})

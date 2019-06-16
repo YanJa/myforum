@@ -24,4 +24,6 @@ urlpatterns = [
     # 文章列表页面
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
+    url(r'^password_reset/$', RegisterView.as_view(), name='password_reset'),
+
 ]
