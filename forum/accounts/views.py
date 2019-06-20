@@ -88,3 +88,16 @@ class RegisterView(View):
         except Exception as e:
             print(e)
         return render(request, self.template, {"form": form, "errors": self.errors})
+
+
+def logout(request):
+    """
+    注销
+    :param request:
+    :return:
+    """
+    html = "accounts/logout.html"
+    auth_logout(request)
+    return render(request, html)
+
+# end

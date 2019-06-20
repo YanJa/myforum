@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from .views import (
     LoginView,
-    RegisterView
+    RegisterView,
+    logout
     )
 
 
@@ -25,5 +26,7 @@ urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^password_reset/$', RegisterView.as_view(), name='password_reset'),
+    url(r'logout/$', logout, name='logout'),
+    url(r'user_info/$', RegisterView.as_view(), name='user_info'),
 
 ]
