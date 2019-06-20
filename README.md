@@ -14,3 +14,6 @@ view
 
 ## 环境区分
 
+在*forum*目录下有两个settings文件  
+* settings_dev.py
+* settings_prod.py
