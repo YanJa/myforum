@@ -10,7 +10,7 @@ from utils.paginator import pagination
 
 # 查看文章列表
 def article_list(request, block_id):
-    template = "article_list.html"
+    template = "article/article_list.html"
     block_id = int(block_id)
     bl = Block.objects.get(id=block_id)  # 指定版块对应的文章信息
     article_objs = Article.objects.filter(block=bl, status=0).order_by('-id')
@@ -26,7 +26,7 @@ def article_list(request, block_id):
 
 
 def article_create(request, block_id):
-    template = "article_create.html"
+    template = "article/article_create.html"
     block_id = int(block_id)
     # 通过传入的block_id获取版块信息
     bl = Block.objects.get(id=block_id)
@@ -58,7 +58,7 @@ def article_create(request, block_id):
 # 文章详情页面
 def article_detail(request, article_id):
 
-    template = "article_detail.html"
+    template = "article/article_detail.html"
 
     article_id = int(article_id)
     article = Article.objects.get(id=article_id)
@@ -74,7 +74,7 @@ class AticleCreateView(View):
     基于类的views
     """
     def _init_data(self, block_id):
-        self.template = "article_create.html"
+        self.template = "article/article_create.html"
         self.block_id = int(block_id)
         self.bl = Block.objects.get(id=block_id)
 
@@ -104,7 +104,7 @@ class AticleCreateView(View):
 class ArticleDetailView(DetailView):
     # 模块, 定义获取哪个数据表的对象
     model = Article
-    template_name = "article_detail.html"
+    template_name = "article/article_detail.html"
     # 返回给模板的字典key名称
     context_object = "article"
 

@@ -54,7 +54,7 @@ class RegisterView(View):
     template = "accounts/register.html"
 
     def __init__(self, **kwargs):
-        super(View).__init__(**kwargs)
+        super(RegisterView, self).__init__(**kwargs)
         self.errors = {
                 "msg": ""
         }
@@ -100,4 +100,46 @@ def logout(request):
     auth_logout(request)
     return render(request, html)
 
+
+class UserInfoView(View):
+    """
+    用户个人主页视图
+    """
+    template = "accounts/userinfo.html"
+
+    def __init__(self, **kwargs):
+        super(UserInfoView, self).__init__(**kwargs)
+        self.errors = {
+                "msg": ""
+        }
+
+    def get(self, request):
+        return render(request, self.template)
+
+    def post(self, request):
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        re_password = request.POST.get("re_password")
+
+        form = {
+            "username": username,
+            "email": email,
+            "password": password
+        }
+        if password != re_password:  # 用户密码校验
+            self.errors.update({"msg": "两次输入用密码不一致"})
+            return render(request, self.template, {"form": form, "errors": self.errors})
+        if not check_email(email):
+            self.errors.update({"msg": "输入的邮箱不正确"})
+            return render(request, self.template, {"form": form, "errors": self.errors})
+        try:
+            user_obj = User.objects.create_user(**form)
+            if user_obj:
+                auth_login(request, user_obj)
+                print("创建用户成功")
+                return redirect("/")
+        except Exception as e:
+            print(e)
+        return render(request, self.template, {"form": form, "errors": self.errors})
 # end
