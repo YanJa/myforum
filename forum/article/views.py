@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView
+from django.contrib.auth.decorators import login_required
 from .models import Article
 from .forms import ArticleForm
 from block.models import Block
@@ -25,6 +26,7 @@ def article_list(request, block_id):
     return render(request, template, response)
 
 
+@login_required(login_url='/accounts/login/')
 def article_create(request, block_id):
     template = "article/article_create.html"
     block_id = int(block_id)
@@ -56,6 +58,7 @@ def article_create(request, block_id):
 
 
 # 文章详情页面
+@login_required(login_url='/accounts/login/')
 def article_detail(request, article_id):
 
     template = "article/article_detail.html"

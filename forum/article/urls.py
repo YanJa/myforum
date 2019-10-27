@@ -21,6 +21,7 @@ from .views import (
     AticleCreateView,
     ArticleDetailView
     )
+from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
@@ -29,7 +30,7 @@ urlpatterns = [
     # url(r'^create/(?P<block_id>\d+)', article_create, name='article_create'),
     # url(r'^detail/(?P<article_id>\d+)', article_detail, name='article_detail'),
     # 创建文章接口
-    url(r'^create/(?P<block_id>\d+)', AticleCreateView.as_view(), name='article_create'),
+    url(r'^create/(?P<block_id>\d+)', login_required(AticleCreateView.as_view()), name='article_create'),
     # 文章详情接口
-    url(r'^detail/(?P<pk>\d+)', ArticleDetailView.as_view(), name='article_detail'),
+    url(r'^detail/(?P<pk>\d+)', login_required(ArticleDetailView.as_view()), name='article_detail'),
 ]

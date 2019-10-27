@@ -9,7 +9,7 @@
         </ul>
         <!--导航条右侧按钮-->
         <ul class="nav navbar-nav navbar-right">
-            {% if request.user == "AnonymousUser" %} <!--匿名用户-->
+            {% if request.user.username == "" %} <!--匿名用户-->
                 <li><a href="#">注册</a></li>
                 <li><a href="{% url 'login' %}">登录</a></li>
             {% else %}

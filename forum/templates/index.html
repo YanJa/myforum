@@ -21,10 +21,12 @@
             {% endfor %}
         </div>
        <div class="col-xs-12 col-md-2">
-            {% if user == 'AnonymousUser' %}
-                <div class="well">匿名用户,马上<a href="{% url 'register' %}">注册</a></div>
+            {% if user == "" %}
+                <div class="well">匿名用户,马上<a href="{% url 'register' %}">注册</a>
+                已有用户,马上<a href="{% url 'login' %}">登录</a>
+                </div>
             {% else %}
-                <div class="well">尊敬的会员<a href="{% url 'login' %}">{{ user }}</a>,欢迎查看本站</div>
+                <div class="well">尊敬的会员<a href="{% url 'user_info' %}">{{ user }}</a>,欢迎查看本站</div>
             {% endif %}
         </div>
     </div>
